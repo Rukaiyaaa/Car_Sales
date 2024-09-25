@@ -1,0 +1,56 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+
+  <div class="col-6">
+    <h1>Welcome to Django Blog</h1>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus dolorum delectus necessitatibus temporibus adipisci, harum enim unde, suscipit in ipsum provident hic minima molestias reiciendis nihil veniam aut doloribus, ab quidem sit cum at nemo nulla autem! Dolor quaerat ea voluptatem ullam, consequuntur quisquam ut iste. Vitae exercitationem ipsum blanditiis. Nihil rem in quo magni quam sapiente ad ipsa voluptatum saepe quos temporibus, at iste? Eum saepe eos error ea recusandae, deserunt at quidem odio harum inventore. Necessitatibus eos sapiente architecto optio aut esse, facilis, voluptatibus assumenda ut exercitationem nobis molestias, quisquam nam quia odio ipsa? Voluptatem voluptas distinctio eaque.</p>
+  </div>
+  <div class="col-6">
+    <img style="width:480px; height:480px" src="{% static 'logo.jpeg' %}" />
+  </div>
+</div>
+
+
+  <div class="bg-white p-3 m-auto" >
+    <h5>All Brands</h5>
+    {% for cat in brand %}
+    <div class="form-check form-check-inline ">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        class="btn-check"
+        name="category"
+        id="{{cat.id}}"
+      />
+      <label class="btn btn-warning" for="{{cat.id}}">
+        
+        <a href="{% url 'category_wise_post' cat.slug %}" class="text-decoration-none text-dark" >{{cat.brand_name}}</a>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="p-3">
+    <h4>{{data | length}} results found</h4>
+    <div class="d-flex flex-wrap pt-5">
+      {% for car in data %}
+      <div class="col-sm-3">
+        <div class="card m-2">
+          <div class="card-body">
+            <img src="{{car.image.url}}" class="card-img-top" alt="...">
+            <h5 class="card-title"><a href="{% url 'detail_car' car.id %}" class="text-decoration-none text-dark">{{car.car_name}}</a></h5>
+            <p class="card-text"><b>Price: </b>{{car.car_price}}</p>
+            <p class="card-text"><b>Brand: </b>{{car.car_brand}}</p>
+            <p class="card-text">{{car.car_view_details | truncatewords:10}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
